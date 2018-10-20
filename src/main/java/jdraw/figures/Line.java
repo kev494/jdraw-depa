@@ -10,6 +10,7 @@ import jdraw.figures.Handle.*;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.awt.geom.Point2D;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -85,8 +86,8 @@ public class Line extends AbstractFigure {
 
 	public java.util.List<FigureHandle> getHandles() {
 
-		handles.add(new Handle(new NorthWestHandle(this)));
-		handles.add(new Handle(new SouthEastHandle(this)));
+		handles.add(new Handle(new LineStartHandle(this)));
+		handles.add(new Handle(new LineEndHandle(this)));
 		return handles;
 	}
 
@@ -100,4 +101,25 @@ public class Line extends AbstractFigure {
 
 	}
 
+	public Point getP1() {
+		return new Point((int)line.getX1(), (int)line.getY1());
+	}
+
+	public Point getP2() {
+		return new Point((int)line.getX2(), (int)line.getY2());
+	}
+
+	public void setP1(Point point) {
+		if(point != line.getP1()) {
+			line.setLine(point, line.getP2());
+			propagateFigureEvent();
+		}
+	}
+
+	public void setP2(Point point) {
+		if(point != line.getP2()) {
+			line.setLine(line.getP1(), point);
+			propagateFigureEvent();
+		}
+	}
 }
