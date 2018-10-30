@@ -17,6 +17,13 @@ public class Group implements Figure, FigureGroup {
         this.parts = new CopyOnWriteArrayList<>(parts);
     }
 
+    public Group(Group g) {
+        parts = new CopyOnWriteArrayList<>();
+        g.parts.forEach( f -> {
+            parts.add(f.clone());
+        });
+    }
+
     @Override
     public void draw(Graphics g) {
         parts.forEach(f -> f.draw(g));
@@ -66,8 +73,8 @@ public class Group implements Figure, FigureGroup {
     }
 
     @Override
-    public Figure clone() {
-        return null;
+    public Group clone() {
+        return new Group(this);
     }
 
     @Override
