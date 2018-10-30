@@ -38,6 +38,10 @@ public class Line extends AbstractFigure {
 		line = new Line2D.Double(x, y, w, h);
 	}
 
+	public Line(Line l) {
+		line = (Line2D.Double) l.line.clone();
+	}
+
 	/**
 	 * Draw the line to the given graphics context.
 	 * @param g the graphics context to use for drawing.
@@ -121,5 +125,10 @@ public class Line extends AbstractFigure {
 			line.setLine(line.getP1(), point);
 			propagateFigureEvent();
 		}
+	}
+
+	@Override
+	public Line clone() {
+		return new Line(this);
 	}
 }

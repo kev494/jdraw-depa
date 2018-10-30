@@ -41,6 +41,10 @@ public class Rect extends AbstractFigure {
 		rectangle = new Rectangle(x, y, w, h);
 	}
 
+	public Rect(Rect r) {
+		//this.rectangle = new Rectangle(r.getBounds().x, r.getBounds().y, r.getBounds().width, r.getBounds().height);
+		this.rectangle = (Rectangle) r.rectangle.clone();
+	}
 	/**
 	 * Draw the rectangle to the given graphics context.
 	 * @param g the graphics context to use for drawing.
@@ -82,6 +86,11 @@ public class Rect extends AbstractFigure {
 	@Override
 	public Rectangle getBounds() {
 		return rectangle.getBounds();
+	}
+
+	@Override
+	public Rect clone() {
+		return new Rect(this);
 	}
 
 	public List<FigureHandle> getHandles() {

@@ -38,6 +38,10 @@ public class Oval extends AbstractFigure {
 		oval = new Ellipse2D.Double(x, y, w, h);
 	}
 
+	public Oval(Oval o) {
+		oval = (Ellipse2D.Double) o.oval.clone();
+	}
+
 	/**
 	 * Draw the oval to the given graphics context.
 	 * @param g the graphics context to use for drawing.
@@ -113,6 +117,11 @@ public class Oval extends AbstractFigure {
 		W.setState(E.getState());
 		E.setState(WState);
 
+	}
+
+	@Override
+	public Oval clone() {
+		return new Oval(this);
 	}
 
 }
