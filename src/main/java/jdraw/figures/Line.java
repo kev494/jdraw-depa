@@ -39,7 +39,8 @@ public class Line extends AbstractFigure {
 	}
 
 	public Line(Line l) {
-		line = (Line2D.Double) l.line.clone();
+		//line = (Line2D.Double) l.line.clone();
+		line = new Line2D.Double(l.getP1(), l.getP2());
 	}
 
 	/**

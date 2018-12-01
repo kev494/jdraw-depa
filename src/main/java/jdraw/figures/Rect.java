@@ -42,8 +42,7 @@ public class Rect extends AbstractFigure {
 	}
 
 	public Rect(Rect r) {
-		//this.rectangle = new Rectangle(r.getBounds().x, r.getBounds().y, r.getBounds().width, r.getBounds().height);
-		this.rectangle = (Rectangle) r.rectangle.clone();
+		this.rectangle = new Rectangle(r.getBounds().x, r.getBounds().y, r.getBounds().width, r.getBounds().height);
 	}
 	/**
 	 * Draw the rectangle to the given graphics context.

@@ -1,10 +1,7 @@
 package jdraw.figures;
 
 import jdraw.figures.Handle.*;
-import jdraw.framework.Figure;
-import jdraw.framework.FigureGroup;
-import jdraw.framework.FigureHandle;
-import jdraw.framework.FigureListener;
+import jdraw.framework.*;
 
 import java.awt.*;
 import java.util.List;
@@ -12,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Group implements Figure, FigureGroup {
     private List<Figure> parts;
+    private final List<FigureListener> figureListenerList = new CopyOnWriteArrayList<>();
 
     public Group(List<Figure> parts) {
         this.parts = new CopyOnWriteArrayList<>(parts);
@@ -32,6 +30,7 @@ public class Group implements Figure, FigureGroup {
     @Override
     public void move(int dx, int dy) {
         parts.forEach(f -> f.move(dx, dy));
+        propagateFigureEvent();
     }
 
     @Override
@@ -64,12 +63,16 @@ public class Group implements Figure, FigureGroup {
 
     @Override
     public void addFigureListener(FigureListener listener) {
-
+        figureListenerList.add(listener);
     }
 
     @Override
     public void removeFigureListener(FigureListener listener) {
-
+        figureListenerList.remove(listener);
+    }
+    private void propagateFigureEvent() {
+        FigureEvent figureEvent = new FigureEvent(this);
+        figureListenerList.forEach(l -> l.figureChanged(figureEvent));
     }
 
     @Override

@@ -39,7 +39,8 @@ public class Oval extends AbstractFigure {
 	}
 
 	public Oval(Oval o) {
-		oval = (Ellipse2D.Double) o.oval.clone();
+		Rectangle r = o.getBounds();
+		oval = new Ellipse2D.Double(r.x, r.y, r.width, r.height);
 	}
 
 	/**
