@@ -200,14 +200,10 @@ public class StdContext extends AbstractContext {
 		borderDecorator.addActionListener(e -> {
 			List<Figure> figures = getView().getSelection();
 			for(Figure f : figures) {
-				if(!(f instanceof DecoratorBorder)) {
-					getModel().removeFigure(f);
-					getModel().addFigure(new DecoratorBorder(f));
-				} else {
-					int count = ((DecoratorBorder) f).getCount();
-					getModel().removeFigure(f);
-					getModel().addFigure(new DecoratorBorder(f, ++count));
-				}
+				DecoratorBorder decoratorBorder = new DecoratorBorder(f);
+				getModel().removeFigure(f);
+				getModel().addFigure(decoratorBorder);
+				getView().addToSelection(decoratorBorder);
 			}
 
 		});
